@@ -1,2 +1,5 @@
 ^ustfd\.Rproj$
 ^\.Rproj\.user$
+^etc$
+^data-raw$
+^LICENSE\.md$
