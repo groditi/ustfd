@@ -3,3 +3,5 @@
 ^etc$
 ^data-raw$
 ^LICENSE\.md$
+^README\.Rmd$
+^cran-comments\.md$

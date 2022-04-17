@@ -1,0 +1,79 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ustfd
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of ustfd is to make it easier to interact with the US Treasury Fiscal
+Data API.
+
+## Installation
+
+You can install the development version of ustfd from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("groditi/ustfd")
+```
+
+## Getting Started
+
+`ustfd` provides functions for retrieving and processing data from the Fiscal Data
+API. There is 4 steps to the workflow:
+
+  * form a query using `ustfd_query`
+  * make an API request using `ustfd_request` 
+  * extract metadata about the results using `ustfd_response_meta_object`
+  * extract the payload of the response using `ustfd_response_payload`
+
+The function `ustfd_simple` aggregates all 4 steps into a single function call
+and should cover most use cases. Dealing with pagination is left to the user.
+
+A list of supported endpoints can be retrieved with `ustfd_endpoints` and a
+dictionary of fields available for each endpoint can be retrieved with
+`ustfd_field_dictionary`.    
+
+## Example
+
+This is a basic example which shows you how to retrieve data:
+
+```{r example}
+ library(ustfd)
+ library(dplyr)
+
+ interest_rates <- ustfd_simple(
+   '/v2/accounting/od/avg_interest_rates',
+    fields = c(
+     'record_date', 'security_desc','security_type_desc','avg_interest_rate_amt'
+    ),
+    filter = list(
+      record_date = c('=' = '2020-03-31')
+    ),
+   page_size = 100
+ )
+ 
+ select(interest_rates$data, -record_date)
+```
+
+An example of how to use the field dictionaries:
+
+```{r example2}
+ library(ustfd)
+ ustfd_field_dictionary('/v2/accounting/od/avg_interest_rates')
+```
+
+
