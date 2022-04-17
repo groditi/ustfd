@@ -46,6 +46,10 @@ ustfd_query(
   '/v2/accounting/od/utf_qtr_yields',
    filter = list(record_date = list('in' = c('2020-03-15','2020-03-16','2020-03-17')))
 )
+ustfd_query(
+  '/v2/accounting/od/utf_qtr_yields',
+   filter = list(record_date = c('=' = '2020-03-15'))
+)
 
 
 
@@ -53,6 +57,7 @@ ustfd_query(
 \seealso{
 Other ustfd_user: 
 \code{\link{ustfd_endpoints}()},
-\code{\link{ustfd_field_dictionary}()}
+\code{\link{ustfd_field_dictionary}()},
+\code{\link{ustfd_simple}()}
 }
 \concept{ustfd_user}

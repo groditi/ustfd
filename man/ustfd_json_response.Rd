@@ -4,10 +4,12 @@
 \alias{ustfd_json_response}
 \title{Process JSON Response of a Successful API Query}
 \usage{
-ustfd_json_response(response)
+ustfd_json_response(response, ...)
 }
 \arguments{
 \item{response}{an httr response returned by \code{\link[=ustfd_request]{ustfd_request()}}}
+
+\item{...}{additional arguments passed to \code{httr::content}}
 }
 \value{
 a list
@@ -20,7 +22,7 @@ from Fiscal Data API and translate a JSON object into a R data structure.
 \dontrun{
 library(ustfd)
 query <- ustfd_query('/v1/accounting/dts/dts_table_4', sort =c('-record_date'))
-response <- ustfd_json_response( ustfd_request(query) )
+response <- ustfd_request(query)
 payload_table <- ustfd_response_payload(response)
 payload_meta <- ustfd_response_meta_object(response)
 }

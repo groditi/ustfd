@@ -40,6 +40,7 @@ ustfd_field_dictionary()[[ustfd_endpoints()$endpoint[4]]]
 \seealso{
 Other ustfd_user: 
 \code{\link{ustfd_endpoints}()},
-\code{\link{ustfd_query}()}
+\code{\link{ustfd_query}()},
+\code{\link{ustfd_simple}()}
 }
 \concept{ustfd_user}

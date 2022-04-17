@@ -32,6 +32,7 @@ unique(ustfd_endpoints()$data_set)
 \seealso{
 Other ustfd_user: 
 \code{\link{ustfd_field_dictionary}()},
-\code{\link{ustfd_query}()}
+\code{\link{ustfd_query}()},
+\code{\link{ustfd_simple}()}
 }
 \concept{ustfd_user}
