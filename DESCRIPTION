@@ -1,11 +1,11 @@
 Package: ustfd
-Title: What the Package Does (One Line, Title Case)
+Title: API Client for US Treasury Fiscal Data
 Version: 0.0.0.9000
 Authors@R: 
     person("Guillermo", "Roditi Dominguez", , "guillermo@newriverinvestments.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7127-8742"))
-Description: What the package does (one paragraph).
-License: LGPL + file LICENSE
+Description: Make requests from the US Treasury Fiscal Data API endpoints.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
@@ -17,3 +17,10 @@ Imports:
     lubridate,
     purrr,
     readr
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0),
+    jsonlite
+Config/testthat/edition: 3
