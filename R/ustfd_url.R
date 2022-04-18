@@ -61,7 +61,7 @@
 #   paste('sort', format, sep='=')
 # }
 
-#' Generate URL To Acces US Treasury Fiscal Data API
+#' Generate URL To Access US Treasury Fiscal Data API
 #'
 #' @description
 #'

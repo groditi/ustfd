@@ -2,7 +2,7 @@
 % Please edit documentation in R/ustfd_url.R
 \name{ustfd_url}
 \alias{ustfd_url}
-\title{Generate URL To Acces US Treasury Fiscal Data API}
+\title{Generate URL To Access US Treasury Fiscal Data API}
 \usage{
 ustfd_url(query)
 }
