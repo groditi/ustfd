@@ -16,7 +16,7 @@ ustfd_field_dictionary(endpoint)
 tibble
 }
 \description{
-\code{ustfd_endpoints} returns the field dictionaries for the requested endpoint.
+\code{ustfd_field_dictionary} returns the field dictionaries for the requested endpoint.
 See \code{\link[=ustfd_endpoints]{ustfd_endpoints()}} for known endpoints.
 }
 \details{
@@ -32,7 +32,7 @@ the following columns:
 }
 \examples{
 library(ustfd)
-ustfd_field_dictionary()[[ustfd_endpoints()$endpoint[4]]]
+ustfd_field_dictionary(ustfd_endpoints()$endpoint[4])
 
 
 

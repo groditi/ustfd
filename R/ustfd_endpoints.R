@@ -32,7 +32,7 @@ ustfd_endpoints <- function(){
 #'
 #' @description
 #'
-#' `ustfd_endpoints` returns the field dictionaries for the requested endpoint.
+#' `ustfd_field_dictionary` returns the field dictionaries for the requested endpoint.
 #' See [`ustfd_endpoints()`] for known endpoints.
 #'
 #' @param endpoint a string representing a valid endpoint
@@ -56,7 +56,7 @@ ustfd_endpoints <- function(){
 #'
 #' @examples
 #' library(ustfd)
-#' ustfd_field_dictionary()[[ustfd_endpoints()$endpoint[4]]]
+#' ustfd_field_dictionary(ustfd_endpoints()$endpoint[4])
 #'
 #'
 #'
