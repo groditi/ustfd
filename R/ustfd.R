@@ -203,8 +203,10 @@ ustfd_response_payload <- function(response){
   meta <- ustfd_response_meta_object(response)
 
   if(meta$count == 0) return(empty_table_prototype(meta$dataTypes))
+
   record_processor <- record_processor_factory(meta$dataTypes)
-  return(purrr::map_dfr(response$data, record_processor))
+  clean_data <- lapply(response$data, record_processor)
+  dplyr::bind_rows(clean_data)
 }
 
 record_processor_factory <- function(types){
