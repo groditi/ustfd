@@ -40,7 +40,7 @@
 #'
 ustfd_query <- function(endpoint, filter=NA, fields=NA, sort=NA, page_size=NA, page_number=NA){
   if(! endpoint %in% .ustfd_endpoints$endpoint)
-    warning(paste('Endpoint "', endpoint,'" not known. see data ustfd_endpoints.'))
+    rlang::warn(paste0('Endpoint "', endpoint,'" not known. see data ustfd_endpoints.'))
 
   query <- list(
     format = 'json',

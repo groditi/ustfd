@@ -27,9 +27,11 @@
 .serialize_filter_operator <- function(operator, value){
   known_operators <- .known_filter_operators()
 
-  if( !(operator %in% names(known_operators)) )
-    stop(paste('Unknown', operator, 'Operator not in:', paste(names(known_operators), collapse=',')))
-
+  if( !(operator %in% names(known_operators)) ){
+    known_operators <- paste(names(known_operators), collapse=',')
+    message <- paste('Unknown', operator, 'Operator not in:', known_operators)
+    rlang::abort(message)
+  }
 
   serialized_operator <- paste0(':', known_operators[[operator]], ':')
   if(operator == 'in'){

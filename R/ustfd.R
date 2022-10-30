@@ -90,10 +90,14 @@ ustfd_request <- function(
   process_response = ustfd_json_response,
   ...
 ){
-  response <- httr::GET(utils::URLdecode(ustfd_url(query)), httr::user_agent(user_agent))
-  httr::stop_for_status(response)
-  if(response$status_code > 200)
-    stop(httr::http_status(response)$message)
+  url <- utils::URLdecode(ustfd_url(query))
+  response <- httr::GET(url, httr::user_agent(user_agent))
+  #httr::stop_for_status(response)
+  if(response$status_code > 200){
+    msg_text <- sprintf('Status code "%s" for URL %s', response$status_code, url)
+    rlang::warn(msg_text)
+    rlang::abort(httr::http_status(response)$message)
+  }
 
   return(process_response(response, ...))
 }
@@ -125,11 +129,11 @@ ustfd_request <- function(
 
 ustfd_json_response <- function(response, ...){
   if(httr::headers(response)[['content-type']] != 'application/json')
-    stop(paste(httr::headers(response)[['content-type']], 'is not JSON'))
+    rlang::abort(paste(httr::headers(response)[['content-type']], 'is not JSON'))
 
   parsed <- httr::content(response, as = 'parsed', simplifyVector = FALSE, ...)
   if('error' %in% names(parsed))
-    stop(parsed$message)
+    rlang::abort(parsed$message)
 
   return(parsed)
 }
