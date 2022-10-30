@@ -200,55 +200,56 @@ ustfd_response_meta_object <- function(response){
 #' }
 #'
 ustfd_response_payload <- function(response){
+  meta <- ustfd_response_meta_object(response)
 
-  payload <- dplyr::mutate(
-    dplyr::bind_rows(response$data),
-    dplyr::across(dplyr::everything(), ~ifelse(.x == 'null', NA, .x))
-  )
-
-  #find columns where all values are null
-  null_tests <- purrr::map_lgl(names(payload), ~any(!is.na(payload[[.x]])))
-  names(null_tests) <- names(payload)
-  all_nulls <- names(null_tests[!null_tests])
-
-  date_types <- c('DATE')
-  percent_types <- c('PERCENTAGE')
-  currency_types <- c('CURRENCY')
-  numeric_types <- c('YEAR','DAY','MONTH','QUARTER','NUMBER')
-
-
-  meta_types <- ustfd_response_meta_object(response)$dataTypes
-  #exclude all-null columns from typecasting based on metadata
-  meta_types <- meta_types[!names(meta_types) %in% all_nulls]
-
-  numeric_cols <- names(meta_types[meta_types %in% numeric_types])
-  date_cols <- names(meta_types[meta_types %in% date_types])
-  percent_cols <- names(meta_types[meta_types %in% percent_types])
-  currency_cols <- names( meta_types[meta_types %in% currency_types])
-
-  if(length(numeric_cols) >= 1)
-    payload <- dplyr::mutate(
-      payload, dplyr::across(dplyr::all_of(numeric_cols), as.numeric)
-    )
-
-  if(length(date_cols) >= 1)
-    payload <- dplyr::mutate(
-      payload, dplyr::across(dplyr::all_of(date_cols), lubridate::ymd)
-    )
-
-  if(length(currency_cols) >= 1)
-    payload <- dplyr::mutate(
-      payload,
-      dplyr::across(dplyr::all_of(currency_cols), readr::parse_number)
-    )
-
-  if(length(percent_cols) >= 1)
-    payload <- dplyr::mutate(
-      payload,
-      dplyr::across(dplyr::all_of(percent_cols), ~readr::parse_number(.x)*.01)
-    )
-
-  return(payload)
+  if(meta$count == 0) return(empty_table_prototype(meta$dataTypes))
+  record_processor <- record_processor_factory(meta$dataTypes)
+  return(purrr::map_dfr(response$data, record_processor))
 }
 
+record_processor_factory <- function(types){
+  type_processor_map <- list(
+    'DATE' = lubridate::ymd,
+    'PERCENTAGE' = readr::parse_number,
+    'CURRENCY' = readr::parse_number,
+    'NUMBER' = as.numeric,
+    'YEAR' = as.integer,
+    'MONTH' = as.integer,
+    'DAY' = as.integer,
+    'QUARTER' = as.integer,
+    'STRING' = as.character
+  )
+
+  record_processors <- purrr::set_names(
+    type_processor_map[unlist(types)],
+    names(types)
+  )
+  processor <- function(record){
+    purrr::imap(
+      purrr::modify_if(record, ~.x == 'null', ~NA),
+      ~ record_processors[[.y]](.x)
+    )
+  }
+  return(processor)
+}
+
+empty_table_prototype <- function(types){
+  prototypes <- list(
+    'DATE' = lubridate::Date(0),
+    'PERCENTAGE' = double(0),
+    'CURRENCY' = double(0),
+    'NUMBER' = double(0),
+    'YEAR' = integer(0),
+    'MONTH' = integer(0),
+    'DAY' = integer(0),
+    'QUARTER' = integer(0),
+    'STRING' = character(0)
+  )
+
+  tbl_prototype <- purrr::set_names(
+    prototypes[unlist(types)],
+    names(types)
+  )
+  return(tibble::tibble(!!!tbl_prototype))
+}
 
