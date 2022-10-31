@@ -2,4 +2,7 @@
 
 0 errors v | 0 warnings v | 0 notes v
 
-* documentation changes only to fix failing example
+## Windows Server 2022 R-Devel
+
+  *Found the following files/directories:
+  'lastMiKTeXException'
