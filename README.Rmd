@@ -43,9 +43,9 @@ API. There is 4 steps to the workflow:
 The function `ustfd_simple` aggregates all 4 steps into a single function call
 and should cover most use cases. Dealing with pagination is left to the user.
 
-A list of supported endpoints can be retrieved with `ustfd_endpoints` and a
+A list of supported endpoints can be retrieved with `ustfd_tables` and a
 dictionary of fields available for each endpoint can be retrieved with
-`ustfd_field_dictionary`.    
+`ustfd_table_columns`.    
 
 ## Example
 
@@ -53,17 +53,17 @@ This is a basic example which shows you how to retrieve data:
 
 ```{r example}
  library(ustfd)
- library(dplyr)
+ library(dplyr, warn.conflicts = FALSE)
 
  interest_rates <- ustfd_simple(
-   '/v2/accounting/od/avg_interest_rates',
+   'v2/accounting/od/avg_interest_rates',
     fields = c(
      'record_date', 'security_desc','security_type_desc','avg_interest_rate_amt'
     ),
     filter = list(
       record_date = c('=' = '2020-03-31')
     ),
-   page_size = 100
+   page_size = 20
  )
  
  select(interest_rates$data, -record_date)
@@ -73,7 +73,28 @@ An example of how to use the field dictionaries:
 
 ```{r example2}
  library(ustfd)
- ustfd_field_dictionary('/v2/accounting/od/avg_interest_rates')
+ library(dplyr, warn.conflicts = FALSE)
+
+ select(ustfd_table_columns('v2/accounting/od/avg_interest_rates'), -endpoint, -definition)
 ```
 
+An example of how to use multiple filters:
+```{r example3}
+ library(ustfd)
+ library(dplyr, warn.conflicts = FALSE)
 
+ interest_rates <- ustfd_simple(
+    'v2/accounting/od/avg_interest_rates',
+    fields = c(
+        'record_date', 'security_desc','security_type_desc','avg_interest_rate_amt'
+    ),
+    filter = list(
+        record_date = c('>=' = '2020-03-31'),
+        record_date = c('<=' = '2020-05-31'),
+        security_type_desc = c('=' = 'Marketable'),
+        avg_interest_rate_amt = c('>=' = 1.0)
+    )
+)
+ 
+ select(interest_rates$data, -security_type_desc, rate = 'avg_interest_rate_amt')
+```
