@@ -20,7 +20,7 @@ one row for every record returned in the same order they were returned.
 \examples{
 \dontrun{
 library(ustfd)
-query <- ustfd_query('/v1/accounting/dts/dts_table_4', sort =c('-record_date'))
+query <- ustfd_query('/v1/accounting/dts/dts_table_2', sort =c('-record_date'))
 response <- ustfd_request(query)
 payload_table <- ustfd_response_payload(response)
 payload_meta <- ustfd_response_meta_object(response)

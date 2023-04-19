@@ -6,11 +6,11 @@
 \usage{
 ustfd_simple(
   endpoint,
-  filter = NA,
-  fields = NA,
-  sort = NA,
-  page_size = NA,
-  page_number = NA,
+  filter = NULL,
+  fields = NULL,
+  sort = NULL,
+  page_size = NULL,
+  page_number = NULL,
   user_agent = "http://github.com/groditi/ustfd"
 )
 }
@@ -61,8 +61,10 @@ exchange_rates <- ustfd_simple(
 }
 \seealso{
 Other ustfd_user: 
-\code{\link{ustfd_endpoints}()},
-\code{\link{ustfd_field_dictionary}()},
-\code{\link{ustfd_query}()}
+\code{\link{endpoint_exists}()},
+\code{\link{ustfd_datasets}()},
+\code{\link{ustfd_query}()},
+\code{\link{ustfd_table_columns}()},
+\code{\link{ustfd_tables}()}
 }
 \concept{ustfd_user}

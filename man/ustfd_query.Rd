@@ -6,11 +6,11 @@
 \usage{
 ustfd_query(
   endpoint,
-  filter = NA,
-  fields = NA,
-  sort = NA,
-  page_size = NA,
-  page_number = NA
+  filter = NULL,
+  fields = NULL,
+  sort = NULL,
+  page_size = NULL,
+  page_number = NULL
 )
 }
 \arguments{
@@ -39,15 +39,15 @@ for passing to \code{\link[=ustfd_url]{ustfd_url()}} and \code{\link[=ustfd_requ
 
 library(ustfd)
 ustfd_query(
-  '/v2/accounting/od/utf_qtr_yields',
+  'v2/accounting/od/utf_qtr_yields',
    filter = list(record_date = c('>=' = lubridate::today()-10))
 )
 ustfd_query(
-  '/v2/accounting/od/utf_qtr_yields',
+  'v2/accounting/od/utf_qtr_yields',
    filter = list(record_date = list('in' = c('2020-03-15','2020-03-16','2020-03-17')))
 )
 ustfd_query(
-  '/v2/accounting/od/utf_qtr_yields',
+  'v2/accounting/od/utf_qtr_yields',
    filter = list(record_date = c('=' = '2020-03-15'))
 )
 
@@ -56,8 +56,10 @@ ustfd_query(
 }
 \seealso{
 Other ustfd_user: 
-\code{\link{ustfd_endpoints}()},
-\code{\link{ustfd_field_dictionary}()},
-\code{\link{ustfd_simple}()}
+\code{\link{endpoint_exists}()},
+\code{\link{ustfd_datasets}()},
+\code{\link{ustfd_simple}()},
+\code{\link{ustfd_table_columns}()},
+\code{\link{ustfd_tables}()}
 }
 \concept{ustfd_user}
