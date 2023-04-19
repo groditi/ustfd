@@ -1,6 +1,6 @@
 Package: ustfd
 Title: API Client for US Treasury Fiscal Data
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: 
     person("Guillermo", "Roditi Dominguez", , "guillermo@newriverinvestments.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7127-8742"))
@@ -14,13 +14,15 @@ BugReports: https://github.com/groditi/ustfd/issues
 Imports: 
     dplyr,
     httr,
-    lubridate,
-    purrr,
+    lubridate (>= 1.9.2),
+    purrr (>= 1.0.0),
     readr,
     rlang (>= 1.0.0),
-    tibble
+    tibble,
+    stringr,
+    snakecase (>= 0.11.0)
 Depends: 
-    R (>= 2.10)
+    R (>= 3.4)
 Suggests: 
     testthat (>= 3.0.0),
     jsonlite

@@ -1,3 +1,17 @@
+# ustfd 0.3.0
+
+Breaking Changes:
+* removed `ustfd_endpoints()` and `ustfd_field_dictionary()`. They are replaced 
+by `ustfd_datasets()`, `ustfd_tables()`, and `ustfd_table_columns()`
+
+Other:
+* leading `/` on endpoints is now optional. 
+
+Behind the scenes:
+* the dictionaries can now be easily updated before release instead of relying
+on a static endpoint list.
+* functions that had `NA` defaults now have `NULL` defaults. 
+
 # ustfd 0.2.0
 
 * Better error handling using `rlang`
