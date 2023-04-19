@@ -234,20 +234,7 @@ col_processor_map <- function(types){
 }
 
 record_processor_factory <- function(types){
-  type_processor_map <- list(
-    'DATE' = lubridate::ymd,
-    'PERCENTAGE' = readr::parse_number,
-    'CURRENCY' = readr::parse_number,
-    'NUMBER' = as.numeric,
-    'YEAR' = as.integer,
-    'MONTH' = as.integer,
-    'DAY' = as.integer,
-    'QUARTER' = as.integer,
-    'STRING' = as.character
-  )
-
   record_processors <- col_processor_map(types)
-
   processor <- function(record){
     purrr::imap(
       purrr::modify_if(record, ~.x == 'null', ~NA_character_),
