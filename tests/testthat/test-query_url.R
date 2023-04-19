@@ -5,7 +5,7 @@ test_that("urls are correct", {
   query1 <- ustfd_query('/v1/accounting/mts/mts_table_1')
   url1 <- ustfd_url(query1)
   query2 <- ustfd_query(
-    '/v1/accounting/mts/mts_table_1',
+    'v1/accounting/mts/mts_table_1',
     filter = list(record_date = c('>=' = '2012-12-31')),
     sort = 'record_date',
     page_size = 120.0,

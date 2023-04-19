@@ -7,9 +7,9 @@ test_that("warnings work", {
 })
 
 test_that("params are populated", {
-  query1 <- ustfd_query('/v1/accounting/mts/mts_table_1')
+  query1 <- ustfd_query('v1/accounting/mts/mts_table_1')
   expects1 <- list(
-    endpoint = '/v1/accounting/mts/mts_table_1',
+    endpoint = 'v1/accounting/mts/mts_table_1',
     format = 'json'
   )
   query2 <- ustfd_query(
@@ -22,7 +22,7 @@ test_that("params are populated", {
   )
   expects2 <- list(
     format = 'json',
-    endpoint = '/v1/accounting/mts/mts_table_1',
+    endpoint = 'v1/accounting/mts/mts_table_1',
     filter = list(record_date = c('>=' = lubridate::today()-10)),
     fields = c('record_date', 'parent_id', 'current_month_gross_rcpt_amt'),
     sort = 'record_date',
