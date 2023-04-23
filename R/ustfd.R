@@ -29,7 +29,7 @@
 #' library(ustfd)
 #'
 #' exchange_rates <- ustfd_simple(
-#'   '/v1/accounting/od/rates_of_exchange',
+#'   'v1/accounting/od/rates_of_exchange',
 #'    fields = c(
 #'     'country_currency_desc', 'exchange_rate','record_date','effective_date'
 #'    ),
@@ -78,7 +78,7 @@ ustfd_simple <- function(
 #' @examples
 #' \dontrun{
 #' library(ustfd)
-#' query <- ustfd_query('/v1/accounting/dts/dts_table_2', sort =c('-record_date'))
+#' query <- ustfd_query('v1/accounting/dts/dts_table_2', sort =c('-record_date'))
 #' response <- ustfd_request(query)
 #' payload_table <- ustfd_response_payload(response)
 #' payload_meta <- ustfd_response_meta_object(response)
@@ -121,7 +121,7 @@ ustfd_request <- function(
 #' @examples
 #' \dontrun{
 #' library(ustfd)
-#' query <- ustfd_query('/v1/accounting/dts/dts_table_2', sort =c('-record_date'))
+#' query <- ustfd_query('v1/accounting/dts/dts_table_2', sort =c('-record_date'))
 #' response <- ustfd_request(query)
 #' payload_table <- ustfd_response_payload(response)
 #' payload_meta <- ustfd_response_meta_object(response)
@@ -164,7 +164,7 @@ ustfd_json_response <- function(response, ...){
 #' @examples
 #' \dontrun{
 #' library(ustfd)
-#' query <- ustfd_query('/v1/accounting/dts/dts_table_2', sort =c('-record_date'))
+#' query <- ustfd_query('v1/accounting/dts/dts_table_2', sort =c('-record_date'))
 #' response <- ustfd_request(query)
 #' payload_table <- ustfd_response_payload(response)
 #' payload_meta <- ustfd_response_meta_object(response)
@@ -193,7 +193,7 @@ ustfd_response_meta_object <- function(response){
 #' @examples
 #' \dontrun{
 #' library(ustfd)
-#' query <- ustfd_query('/v1/accounting/dts/dts_table_2', sort =c('-record_date'))
+#' query <- ustfd_query('v1/accounting/dts/dts_table_2', sort =c('-record_date'))
 #' response <- ustfd_request(query)
 #' payload_table <- ustfd_response_payload(response)
 #' payload_meta <- ustfd_response_meta_object(response)
@@ -205,10 +205,13 @@ ustfd_response_payload <- function(response){
 
   if(meta$count == 0) return(empty_prototype)
 
-  col_parsers <- col_processor_map(meta$dataTypes)
-  dirty_tbl <- dplyr::bind_rows(response$data)
+  parsed_payload(response$data, meta$dataTypes)
+}
+
+parsed_payload <- function(data, data_types){
+  col_parsers <- col_processor_map(data_types)
   dplyr::mutate(
-    dirty_tbl,
+    dplyr::bind_rows(data),
     dplyr::across(dplyr::everything(), ~dplyr::if_else(.x == 'null', NA, .x)),
     dplyr::across(dplyr::everything(), ~col_parsers[[dplyr::cur_column()]](.x))
   )
