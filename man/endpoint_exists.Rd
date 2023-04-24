@@ -22,6 +22,7 @@ endpoint_exists('v2/accounting/od/debt_to_penny')
 }
 \seealso{
 Other ustfd_user: 
+\code{\link{ustfd_all_pages}()},
 \code{\link{ustfd_datasets}()},
 \code{\link{ustfd_query}()},
 \code{\link{ustfd_simple}()},

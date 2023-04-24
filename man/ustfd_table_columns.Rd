@@ -42,6 +42,7 @@ ustfd_table_columns(ustfd_tables(ustfd_datasets()$dataset[2])$endpoint)
 \seealso{
 Other ustfd_user: 
 \code{\link{endpoint_exists}()},
+\code{\link{ustfd_all_pages}()},
 \code{\link{ustfd_datasets}()},
 \code{\link{ustfd_query}()},
 \code{\link{ustfd_simple}()},

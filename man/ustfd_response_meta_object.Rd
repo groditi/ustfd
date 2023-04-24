@@ -27,7 +27,7 @@ successful API response. The meta object is a list with the following items:
 \examples{
 \dontrun{
 library(ustfd)
-query <- ustfd_query('/v1/accounting/dts/dts_table_2', sort =c('-record_date'))
+query <- ustfd_query('v1/accounting/dts/dts_table_2', sort =c('-record_date'))
 response <- ustfd_request(query)
 payload_table <- ustfd_response_payload(response)
 payload_meta <- ustfd_response_meta_object(response)
