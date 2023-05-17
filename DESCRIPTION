@@ -1,6 +1,6 @@
 Package: ustfd
 Title: API Client for US Treasury Fiscal Data
-Version: 0.4.0
+Version: 0.4.0.9000
 Authors@R: 
     person("Guillermo", "Roditi Dominguez", , "guillermo@newriverinvestments.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7127-8742"))
