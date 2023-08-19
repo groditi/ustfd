@@ -223,15 +223,24 @@ col_processor_map <- function(types){
     'PERCENTAGE' = readr::parse_number,
     'CURRENCY' = readr::parse_number,
     'NUMBER' = as.numeric,
+    'INTEGER' = as.numeric,
     'YEAR' = as.integer,
     'MONTH' = as.integer,
     'DAY' = as.integer,
     'QUARTER' = as.integer,
-    'STRING' = as.character
+    'STRING' = as.character,
+    '***' = as.character
   )
 
+  types_c <- as.character(types)
+  unknown_types <- which(!types_c %in% names(type_processor_map))
+  if(length(unknown_types) > 0){
+    rlang::warn(sprintf("Unknown mapping for type '%s'.", types_c[unknown_types]))
+    types_c[unknown_types] <- '***'
+  }
+
   purrr::set_names(
-    type_processor_map[unlist(types)],
+    type_processor_map[types_c],
     names(types)
   )
 }

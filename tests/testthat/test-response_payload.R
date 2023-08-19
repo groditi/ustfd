@@ -57,3 +57,30 @@ test_that('graceful zero record payload', {
   )
 
 })
+
+test_that('unknown types are not fatal', {
+  json_response <- jsonlite::fromJSON(
+    testthat::test_path('sample-response.json'),
+    simplifyVector = FALSE
+  )
+
+  wobble_response <- json_response
+  wobble_response$meta$dataTypes$sequence_number_cd <- 'WOBBLE'
+  expect_warning(
+    {ustfd_response_payload(wobble_response)},
+    "Unknown mapping for type 'WOBBLE'."
+  )
+
+  wobble_payload <- suppressWarnings(ustfd_response_payload(wobble_response))
+
+  expect_equal(
+    names(ustfd_response_payload(json_response)),
+    names(wobble_payload)
+  )
+
+  expect_equal(
+    ustfd_response_payload(json_response)$sequence_number_cd,
+    wobble_payload$sequence_number_cd
+  )
+
+})
