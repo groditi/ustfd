@@ -40,7 +40,7 @@ dictionary of fields available for each endpoint can be retrieved with
 
 ## Example
 
-This is a basic example which shows you how to retrieve data:
+This is a basic example which shows how to retrieve data:
 
 ``` r
  library(ustfd)
@@ -59,25 +59,24 @@ This is a basic example which shows you how to retrieve data:
  
  select(interest_rates$data, -record_date)
 #> # A tibble: 16 x 3
-#>    security_desc                                  security_type_desc    avg_in~1
-#>    <chr>                                          <chr>                    <dbl>
-#>  1 Treasury Bills                                 Marketable               1.22 
-#>  2 Treasury Notes                                 Marketable               2.10 
-#>  3 Treasury Bonds                                 Marketable               3.78 
-#>  4 Treasury Inflation-Protected Securities (TIPS) Marketable               0.741
-#>  5 Federal Financing Bank                         Marketable               2.68 
-#>  6 Total Marketable                               Marketable               2.21 
-#>  7 Domestic Series                                Non-marketable           8.04 
-#>  8 Foreign Series                                 Non-marketable           7.31 
-#>  9 State and Local Government Series              Non-marketable           1.80 
-#> 10 United States Savings Securities               Non-marketable           3.04 
-#> 11 United States Savings Inflation Securities     Non-marketable           3.61 
-#> 12 Government Account Series                      Non-marketable           2.48 
-#> 13 Government Account Series Inflation Securities Non-marketable           1.30 
-#> 14 Total Non-marketable                           Non-marketable           2.50 
-#> 15 Total Interest-bearing Debt                    Interest-bearing Debt    2.29 
-#> 16 Treasury Floating Rate Notes (FRN)             Marketable               0.148
-#> # ... with abbreviated variable name 1: avg_interest_rate_amt
+#>    security_desc                        security_type_desc avg_interest_rate_amt
+#>    <chr>                                <chr>                              <dbl>
+#>  1 Treasury Bills                       Marketable                         1.22 
+#>  2 Treasury Notes                       Marketable                         2.10 
+#>  3 Treasury Bonds                       Marketable                         3.78 
+#>  4 Treasury Inflation-Protected Securi~ Marketable                         0.741
+#>  5 Federal Financing Bank               Marketable                         2.68 
+#>  6 Total Marketable                     Marketable                         2.21 
+#>  7 Domestic Series                      Non-marketable                     8.04 
+#>  8 Foreign Series                       Non-marketable                     7.31 
+#>  9 State and Local Government Series    Non-marketable                     1.80 
+#> 10 United States Savings Securities     Non-marketable                     3.04 
+#> 11 United States Savings Inflation Sec~ Non-marketable                     3.61 
+#> 12 Government Account Series            Non-marketable                     2.48 
+#> 13 Government Account Series Inflation~ Non-marketable                     1.30 
+#> 14 Total Non-marketable                 Non-marketable                     2.50 
+#> 15 Total Interest-bearing Debt          Interest-bearing ~                 2.29 
+#> 16 Treasury Floating Rate Notes (FRN)   Marketable                         0.148
 ```
 
 An example of how to use the field dictionaries:

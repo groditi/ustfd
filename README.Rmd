@@ -49,7 +49,7 @@ dictionary of fields available for each endpoint can be retrieved with
 
 ## Example
 
-This is a basic example which shows you how to retrieve data:
+This is a basic example which shows how to retrieve data:
 
 ```{r example}
  library(ustfd)
