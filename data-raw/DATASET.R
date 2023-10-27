@@ -1,9 +1,17 @@
-library(ustfd)
 
-datasets <- get_ustfd_datasets()
-.dictionaries <- extract_ustfd_dictionaries(datasets)
+datasets <- ustfd:::get_ustfd_datasets()
+.dictionaries <- ustfd:::extract_ustfd_dictionaries(datasets)
 
 usethis::use_data(.dictionaries, internal = TRUE, overwrite = TRUE)
+
+csv_path <- fs::path('./', 'data-raw')
+purrr::imap(
+  .dictionaries,
+  ~readr::write_csv(
+    .x,
+    fs::path(csv_path, fs::path_ext_set(paste0(.y,'-dictionary'), 'csv'))
+  )
+)
 
 #.ustfd_endpoints <- readr::read_csv('data-raw/fiscal_data_endpoints.csv')
 
