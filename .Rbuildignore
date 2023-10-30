@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^etc$
 ^data-raw$
+^.github$
 ^LICENSE\.md$
 ^README\.Rmd$
 ^cran-comments\.md$
