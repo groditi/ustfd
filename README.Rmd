@@ -21,6 +21,15 @@ knitr::opts_chunk$set(
 The goal of ustfd is to make it easier to interact with the US Treasury Fiscal
 Data API.
 
+## A Bit Of Housekeeping
+
+`ustfd` is a volunteer effort undertaken in my spare time. I have a family and
+the little spare time I have is valuable. Please consider sponsoring this
+project with a one-time or recurring donation if you would like new
+functionality to be added, or just as a show of appreciation. Additionally, if
+you or your organization intend to use this package for commercial purposes, I
+am open to consulting and/or contract work.
+
 ## Installation
 
 You can install the development version of ustfd from [GitHub](https://github.com/) with:
