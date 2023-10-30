@@ -1,4 +1,4 @@
-# ustfd (development version)
+# ustfd 0.4.2
 
 # ustfd 0.4.9000
 
