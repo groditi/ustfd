@@ -1,8 +1,9 @@
 # ustfd (development version)
 
-# ustfd 0.4.2
+-   Better documentation of how filters work on API requests.
+-   Improve documentation and use roxygen reuse functionality to reduce dupes
 
-# ustfd 0.4.9000
+# ustfd 0.4.2
 
 -   During the week ending October 27th a number of API endpoints changed.
 

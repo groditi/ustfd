@@ -19,13 +19,13 @@ ustfd_all_pages(
 \arguments{
 \item{endpoint}{required string representing an API endpoint}
 
-\item{filter}{optional list used to subset the data. known filter operators
-are '>', '>=', '<', '<=', '=', and 'in'}
+\item{filter}{optional list used to subset the data. See \link{filter-syntax} for
+more information.}
 
-\item{fields}{optional string vector of the fields to be retrieved}
+\item{fields}{optional character vector of the fields to be retrieved}
 
-\item{sort}{optional string or string vector. Ordering defaults to ascending,
-to specify descending order precede the field name with '-'}
+\item{sort}{optional string or character vector. Ordering defaults to
+ascending, to specify descending order precede the field name with '-'}
 
 \item{page_size}{optional integer for pagination}
 
@@ -35,7 +35,7 @@ to specify descending order precede the field name with '-'}
 
 \item{quiet}{when set to \code{FALSE} updates will be output via a message}
 
-\item{user_agent}{optional string}
+\item{user_agent}{string, optional}
 }
 \value{
 a list containing the following items

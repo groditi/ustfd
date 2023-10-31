@@ -7,17 +7,11 @@
 #' for requests that generate multiple pages of results, it will request all
 #' pages and merge them into a single result.
 #'
-#' @param endpoint required string representing an API endpoint
-#' @param filter optional list used to subset the data. known filter operators
-#' are '>', '>=', '<', '<=', '=', and 'in'
-#' @param fields optional string vector of the fields to be retrieved
-#' @param sort optional string or string vector. Ordering defaults to ascending,
-#' to specify descending order precede the field name with '-'
-#' @param page_size optional integer for pagination
+#' @inheritParams ustfd_query
+#' @inheritParams ustfd_request
 #' @param slowly pause between http requests when set to `TRUE`
 #' @param pause length, in seconds, to pause
 #' @param quiet when set to `FALSE` updates will be output via a message
-#' @param user_agent optional string
 #'
 #' @return a list containing the following items
 #'  * `meta` - the metadata returned by the API

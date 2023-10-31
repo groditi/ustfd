@@ -16,13 +16,13 @@ ustfd_query(
 \arguments{
 \item{endpoint}{required string representing an API endpoint}
 
-\item{filter}{optional list used to subset the data. known filter operators
-are '>', '>=', '<', '<=', '=', and 'in'}
+\item{filter}{optional list used to subset the data. See \link{filter-syntax} for
+more information.}
 
-\item{fields}{optional string vector of the fields to be retrieved}
+\item{fields}{optional character vector of the fields to be retrieved}
 
-\item{sort}{optional string or string vector. Ordering defaults to ascending,
-to specify descending order precede the field name with '-'}
+\item{sort}{optional string or character vector. Ordering defaults to
+ascending, to specify descending order precede the field name with '-'}
 
 \item{page_size}{optional integer for pagination}
 
@@ -55,7 +55,7 @@ ustfd_query(
 
 }
 \seealso{
-Other ustfd_user: 
+Other ustfd_user:
 \code{\link{endpoint_exists}()},
 \code{\link{ustfd_all_pages}()},
 \code{\link{ustfd_datasets}()},

@@ -7,7 +7,7 @@
 endpoint_exists(endpoint)
 }
 \arguments{
-\item{endpoint}{one or more strings}
+\item{endpoint}{character vector}
 }
 \value{
 logical matching input size

@@ -120,7 +120,7 @@ ustfd_table_columns <- function(endpoints=NULL){
 #'
 #' See [`ustfd_tables()`] for known endpoints.
 #'
-#' @param endpoint one or more strings
+#' @param endpoint character vector
 #'
 #' @return logical matching input size
 #'

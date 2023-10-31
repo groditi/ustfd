@@ -5,14 +5,7 @@
 #' `ustfd_simple()` aggregates the workflow for retrieving data from the API
 #' into a single call.
 #'
-#' @param endpoint required string representing an API endpoint
-#' @param filter optional list used to subset the data. known filter operators
-#' are '>', '>=', '<', '<=', '=', and 'in'
-#' @param fields optional string vector of the fields to be retrieved
-#' @param sort optional string or string vector. Ordering defaults to ascending,
-#' to specify descending order precede the field name with '-'
-#' @param page_size optional integer for pagination
-#' @param page_number optional integer for pagination
+#' @inheritParams ustfd_query
 #' @param user_agent optional string
 #'
 #' @return a list containing the following items
