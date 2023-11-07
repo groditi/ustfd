@@ -2,6 +2,12 @@
 
 -   Better documentation of how filters work on API requests.
 -   Improve documentation and use roxygen reuse functionality to reduce dupes
+-   Refactor `parsed_payload` to eliminate dplyr dependencies
+-   Refactor `ustfd_all_pages` in an attempt to reduce memory use. Previously,
+request aggregation was temporarily using more memory than necessary and 
+requests resulting in a very high number of records (>200,000) were leading to
+large temporary memory allocations, potentially leading to performance issues 
+or, in rare cases, crashes.
 
 # ustfd 0.4.2
 

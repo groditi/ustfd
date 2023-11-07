@@ -7,6 +7,11 @@
 #' for requests that generate multiple pages of results, it will request all
 #' pages and merge them into a single result.
 #'
+#' While care has been taken to optimize `ustfd_all_pages()`, for requests
+#' spanning more than 10 pages you should consider breaking up the call further
+#' if memory use is a concern, especially if you are writing the results to disk
+#' or a database with atomic transactions.
+#'
 #' @inheritParams ustfd_query
 #' @inheritParams ustfd_request
 #' @param slowly pause between http requests when set to `TRUE`
@@ -38,47 +43,58 @@
 #' )
 #' }
 ustfd_all_pages <- function(
-    endpoint, filter=NULL, fields=NULL, sort=NULL, page_size=10000,
+    endpoint, filter=NULL, fields=NULL, sort=NULL, page_size=10000L,
     slowly = FALSE, pause = 0.25, quiet = TRUE,
     user_agent='http://github.com/groditi/ustfd'
 ){
 
-  message <- "Requesting {endpoint} page {page_number} of {page_count}"
-  get_page <- function(page_number, page_count){
-    if( !quiet ) rlang::inform(glue::glue(message))
-    query <- ustfd_query(
-      endpoint = endpoint,
-      filter = filter,
-      fields = fields,
-      sort = sort,
-      page_size = page_size,
-      page_number = page_number
+  paged_request <- function(page_number){
+    if( !quiet )
+      rlang::inform(glue::glue("Requesting {endpoint} page {page_number}"))
+
+    ustfd_request(
+      ustfd_query(
+        endpoint = endpoint,
+        filter = filter,
+        fields = fields,
+        sort = sort,
+        page_size = page_size,
+        page_number = page_number
+      ),
+      user_agent
     )
-    ustfd_request(query, user_agent)
   }
 
   if( slowly ){
     rate <- purrr::rate_delay(pause)
-    get_page <- purrr::slowly(get_page, rate = rate, quiet = quiet)
+    paged_request <- purrr::slowly(paged_request, rate = rate, quiet = quiet)
   }
 
-  pages <- list(get_page(1, '?'))
-  record_count <- pages[[1]]$meta$`total-count`
-  page_count <- pages[[1]]$meta$`total-pages`
-  if (page_count > 1)
-    pages <- append(pages, purrr::map(seq(2, page_count), get_page, page_count))
-
-  all_records <- purrr::list_flatten(purrr::map(pages, 'data'))
-  if(record_count != length(all_records))
-    rlang::abort('record_count mismatch')
-
-  all_data <- parsed_payload(all_records, pages[[1]]$meta$dataTypes)
   keep <- c('labels', 'dataTypes', 'dataFormats','total-count','total-pages')
+  page <- paged_request(1)
+  meta <- page$meta[keep]
 
+  idx_start <- 1
+  idx_end <- length(page$data)
+  all_records <- vector(mode='list', length = meta$`total-count`)
+  all_records[idx_start:idx_end] <- page$data
+  rm(page)
+
+  if((page_count <- meta$`total-pages`) > 1){
+    for(page_num in 2:page_count){
+      page_data <- paged_request(page_num)$data
+      idx_start <- idx_end + 1
+      idx_end <- idx_end + length(page_data)
+
+      all_records[idx_start:idx_end] <- page_data
+    }
+  }
+
+  parsed <- parsed_payload(all_records, meta$dataTypes)
   return(
     list(
-      meta = pages[[1]]$meta[keep],
-      data = all_data
+      meta = meta,
+      data = parsed
     )
   )
 }

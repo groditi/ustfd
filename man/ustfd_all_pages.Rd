@@ -9,7 +9,7 @@ ustfd_all_pages(
   filter = NULL,
   fields = NULL,
   sort = NULL,
-  page_size = 10000,
+  page_size = 10000L,
   slowly = FALSE,
   pause = 0.25,
   quiet = TRUE,
@@ -49,6 +49,11 @@ See \code{\link[=ustfd_response_payload]{ustfd_response_payload()}}
 \code{ustfd_all_pages()} is similar to \code{ustfd_simple()} with the difference that,
 for requests that generate multiple pages of results, it will request all
 pages and merge them into a single result.
+
+While care has been taken to optimize \code{ustfd_all_pages()}, for requests
+spanning more than 10 pages you should consider breaking up the call further
+if memory use is a concern, especially if you are writing the results to disk
+or a database with atomic transactions.
 }
 \examples{
 \dontrun{

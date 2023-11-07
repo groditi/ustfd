@@ -55,7 +55,7 @@ ustfd_query(
 
 }
 \seealso{
-Other ustfd_user:
+Other ustfd_user: 
 \code{\link{endpoint_exists}()},
 \code{\link{ustfd_all_pages}()},
 \code{\link{ustfd_datasets}()},
