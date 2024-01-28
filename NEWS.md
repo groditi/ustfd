@@ -1,5 +1,7 @@
 # ustfd (development version)
 
+-   During January, 2024the API stopped coding record numbers as data-type `CURRENCY` and started coding them as `CURRENCY0` in the meta record. The `CURRENCY0` type did not previously exist and therefore did not have an associated mapping.
+
 # ustfd 0.4.3
 
 -   Better documentation of how filters work on API requests.

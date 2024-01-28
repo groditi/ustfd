@@ -232,6 +232,7 @@ col_processor_map <- function(types){
     'DATE' = lubridate::ymd,
     'PERCENTAGE' = readr::parse_number,
     'CURRENCY' = readr::parse_number,
+    'CURRENCY0' = readr::parse_number,
     'NUMBER' = as.numeric,
     'INTEGER' = as.numeric,
     'YEAR' = as.integer,
